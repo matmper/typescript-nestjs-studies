@@ -15,9 +15,6 @@ $ npm install
 ```bash
 # development - docker
 $ docker-compose up dev
-
-#development - npm (watch)
-$ npm run dev
 ```
 
 ## Execução de testes

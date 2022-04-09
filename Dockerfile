@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm run start:debug
+RUN npm run build
 
 CMD ["node", "dist/main"]
