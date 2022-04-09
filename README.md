@@ -5,35 +5,32 @@ Repositório exclusivo para estudos pessoais de TypeScript utilizando o framewor
 ## Instalação
 
 ```bash
-$ yarn install
-#or
+# use docker
+# or
 $ npm install
 ```
 
 ## Execução
 
 ```bash
-# development
-$ yarn run start
+# development - docker
+$ docker-compose up dev
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+#development - npm (watch)
+$ npm run dev
 ```
 
 ## Execução de testes
 
 ```bash
 # unit tests
-$ yarn run test
+$ npm run test
 
 # e2e tests
-$ yarn run test:e2e
+$ npm run test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ npm run test:cov
 ```
 
 ## Licença

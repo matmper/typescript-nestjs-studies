@@ -1,0 +1,10 @@
+node_modules
+package-lock.json
+Dockerfile
+dev
+dev/**
+.git
+.gitignore
+.env.example
+release.sh
+README.md
