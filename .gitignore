@@ -4,6 +4,8 @@
 
 # Env
 .env
+database/
+database/**
 
 # Logs
 logs

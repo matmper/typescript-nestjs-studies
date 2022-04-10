@@ -4,17 +4,27 @@ Repositório exclusivo para estudos pessoais de TypeScript utilizando o framewor
 
 ## Instalação
 
+- Realize a instalação do [Docker](https://docs.docker.com/engine/install/)
+- Mantenha o docker inicializado
+- Execute na pasta raiz do projeto:
 ```bash
-# use docker
-# or
-$ npm install
+# copy .env.example
+$ cp .env.example .env
+```
+
+Configure o seu arquivo de ambiente e execute também na raiz:
+
+```bash
+# development - docker
+$ docker-compose up
 ```
 
 ## Execução
 
+- Execute na pasta raiz do projeto:
 ```bash
 # development - docker
-$ docker-compose up dev
+$ docker-compose up
 ```
 
 ## Execução de testes
@@ -23,12 +33,15 @@ $ docker-compose up dev
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
+
+---
+
+![it is not a bug, it is a feature](https://media.giphy.com/media/1afuwyOsr5E8X9CuRV/giphy.gif)
+
+Não é um repositório de bugs e sim um repositório de estudos!
 
 ## Licença
 
