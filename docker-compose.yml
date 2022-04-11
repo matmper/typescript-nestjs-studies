@@ -23,8 +23,10 @@ services:
         restart: unless-stopped
         depends_on:
             - mongo
+            - mysql
         links:
             - mongo
+            - mysql
 
     # MongoDB
     mongo:
@@ -43,6 +45,31 @@ services:
             - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
         ports:
             - ${DB_MONGO_PORT}:27017
+        networks:
+            - nesjs-network
+        restart: always
+
+    # DB - MySQL 5.7
+    mysql:
+        container_name: studies-mysql
+        image: mysql:5.7
+        platform: linux/x86_64
+        env_file:
+            - .env
+        environment:
+            MYSQL_PORT: ${DB_MYSQL_PORT}
+            MYSQL_ROOT_PASSWORD: ${DB_MYSQL_PASS}
+            MYSQL_DATABASE: ${DB_MYSQL_NAME}
+            MYSQL_USER: ${DB_MYSQL_USER}
+            MYSQL_PASSWORD: ${DB_MYSQL_PASS}
+        command:
+            - --explicit_defaults_for_timestamp
+            - --default-authentication-plugin=mysql_native_password
+        volumes:
+            - ./mysql/data:/var/lib/mysql
+            - ./docker/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+        ports:
+            - "${DB_MYSQL_PORT}:${DB_MYSQL_PORT}"
         networks:
             - nesjs-network
         restart: always
