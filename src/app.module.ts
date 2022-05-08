@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { UserModule } from './user/user.module';
 import User from './user/user.entity';
-import { Solicitation } from './credit-card/solicitation.entity';
+import Solicitation from './credit-card/solicitation.entity';
 
 @Module({
   imports: [

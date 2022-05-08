@@ -9,9 +9,10 @@ import {
     UpdateDateColumn,
     DeleteDateColumn,
 } from 'typeorm';
+import SolicitationStatus from './enum/solicitation-status.enum';
 
 @Entity()
-export class Solicitation {
+export default class Solicitation {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,8 +20,8 @@ export class Solicitation {
     @OneToOne(() => User)
     user: User;
 
-    @Column({default: 1})
-    status: string;
+    @Column()
+    status: SolicitationStatus;
 
     @Column()
     preferredDueDay: number;
