@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
     # NestJS
-    dev:
+    nestdev:
         container_name: studies-nestjs
         image: nestjs-api-dev:1.0.0
         env_file:
             - .env
         build:
             context: .
-            target: development
+            target: local
             dockerfile: ./Dockerfile
         command: npm run start:debug
         ports:
@@ -22,35 +22,12 @@ services:
             - /usr/src/app/node_modules
         restart: unless-stopped
         depends_on:
-            - mongo
-            - mysql
+            - nestmysql
         links:
-            - mongo
-            - mysql
-
-    # MongoDB
-    mongo:
-        container_name: studies-mongodb
-        image: mongo:latest
-        env_file:
-            - .env
-        environment:
-            MONGO_INITDB_DATABASE: ${DB_MONGO_NAME}
-            MONGO_INITDB_USERNAME: root
-            MONGO_INITDB_PASSWORD: pass
-            MONGO_USER: ${DB_MONGO_USER}
-            MONGO_PASS: ${DB_MONGO_PASS}
-        volumes:
-            - dbdata-volume:/data/db
-            - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-        ports:
-            - ${DB_MONGO_PORT}:27017
-        networks:
-            - nesjs-network
-        restart: always
+            - nestmysql
 
     # DB - MySQL 5.7
-    mysql:
+    nestmysql:
         container_name: studies-mysql
         image: mysql:5.7
         platform: linux/x86_64
@@ -66,7 +43,7 @@ services:
             - --explicit_defaults_for_timestamp
             - --default-authentication-plugin=mysql_native_password
         volumes:
-            - ./mysql/data:/var/lib/mysql
+            - nest-mysql-volume:/var/lib/mysql
             - ./docker/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
         ports:
             - "${DB_MYSQL_PORT}:${DB_MYSQL_PORT}"
@@ -75,7 +52,7 @@ services:
         restart: always
 
 volumes:
-    dbdata-volume:
+    nest-mysql-volume:
 
 networks:
     nesjs-network:

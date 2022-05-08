@@ -12,29 +12,37 @@ Repositório exclusivo para estudos pessoais de TypeScript utilizando o framewor
 $ cp .env.example .env
 ```
 
-Configure o seu arquivo de ambiente e execute também na raiz:
+Configure o seu arquivo de ambiente e execute também na raiz, execute o seguinte comando para realizar o build
+de seu projeto:
 
+```bash
+# development - docker
+$ docker-compose up --build
+```
+
+## Execução
+
+- Execute na pasta raiz do projeto para executar o seu projeto:
 ```bash
 # development - docker
 $ docker-compose up
 ```
 
-## Execução
+## Documentação de rotas
 
-- Execute na pasta raiz do projeto:
+- Este projeto utiliza o pacote `@nestjs/swagger` para controle de documentação de rotas. Acesse:
 ```bash
-# development - docker
-$ docker-compose up
+http://127.0.0.1:3000/docs
 ```
 
 ## Execução de testes
 
 ```bash
 # unit tests
-$ npm run test
+$ docker-compose exec app npm run test
 
 # test coverage
-$ npm run test:cov
+$ docker-compose exec app npm run test:cov
 ```
 
 ---
