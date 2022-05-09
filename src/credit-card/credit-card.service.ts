@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import User from 'src/user/user.entity';
+import { UserService } from '../user/user.service';
 import Solicitation from './solicitation.entity';
 import CreditCardRequestDTO from './types/credit-card-request.dto';
 import SolicitationStatus from './enum/solicitation-status.enum';
@@ -9,36 +9,35 @@ import SolicitationStatus from './enum/solicitation-status.enum';
 @Injectable()
 export class CreditCardService {
     constructor(
-        @InjectRepository(User) private userRepository: Repository<User>,
-        @InjectRepository(Solicitation) private solicitationRepository: Repository<Solicitation>
+        @InjectRepository(Solicitation) private solicitationRepository: Repository<Solicitation>,
+        private userService: UserService,
     ) {}
 
     /**
      * Cadastra um usuário e sua solicitação de transação
+     * @param creditCardRequest 
+     * @returns 
      */
     async createSolicitation(creditCardRequest: CreditCardRequestDTO) {
-        const user = await this.userRepository.save(
-            this.userRepository.create({
-                name: creditCardRequest.name,
-                cpf: creditCardRequest.cpf,
-                email: creditCardRequest.email,
-                password: creditCardRequest.password,
-            })
-        );
+        const user = await this.userService.createUser({
+            email: creditCardRequest.email,
+            name: creditCardRequest.name,
+            password: creditCardRequest.password,
+            cpf: creditCardRequest.cpf,
+        });
 
         const score = this.requestScore();
         const approved = score >= 600;
 
-        const solicitation = await this.solicitationRepository.save(
-            this.solicitationRepository.create({
-                preferredDueDay: creditCardRequest.preferredDueDay,
-                user: user,
-                status: approved ? SolicitationStatus.APPROVED : SolicitationStatus.DENIED,
-            })
-        );
+        const solicitationEntity = this.solicitationRepository.create({
+            preferredDueDay: creditCardRequest.preferredDueDay,
+            user: user,
+            status: approved ? SolicitationStatus.APPROVED : SolicitationStatus.DENIED,
+        })
+
+        const solicitation = await this.solicitationRepository.save(solicitationEntity);
 
         return {
-            user: user,
             solicitation: solicitation,
             score: score,
             approved: approved,
