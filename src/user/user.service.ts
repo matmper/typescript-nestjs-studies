@@ -28,6 +28,46 @@ export class UserService {
     }
 
     /**
+     * Re4aliza uma verificação se o usuário existe de acordo com email ou cpf
+     * @param email 
+     * @param cpf 
+     * @returns 
+     */
+    async verifyUserExists(email, cpf) {
+        const hasUserByEmail = await this.findUserByEmail(email)
+
+        if (hasUserByEmail.length > 0) {
+            return {user: hasUserByEmail, type: 'email'}
+        }
+
+        const hasUserByCpf = await this.findUserByCpf(cpf)
+
+        if (hasUserByCpf.length > 0) {
+            return {user: hasUserByCpf, type: 'cpf'}
+        }
+
+        return false
+    }
+
+    /**
+     * Captura um usuário pelo seu e-mail
+     * @param email 
+     * @returns 
+     */
+    private async findUserByEmail(email: string) {
+        return this.userRepository.find({ email })
+    }
+
+    /**
+     * Captura um usuário pelo seu cpf
+     * @param cpf 
+     * @returns 
+     */
+    private async findUserByCpf(cpf: string) {
+        return this.userRepository.find({ cpf })
+    }
+
+    /**
      * Retorna um password já com sua cryptografia
      * @param password 
      * @returns string
