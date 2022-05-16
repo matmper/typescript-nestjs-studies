@@ -6,18 +6,23 @@ import { CreditCardService } from './credit-card.service';
 @ApiTags('Requisição')
 @Controller('credit-card')
 export class CreditCardController {
-    constructor(
-        private creditCardService: CreditCardService
-    ) {}
+  constructor(
+    private creditCardService: CreditCardService
+  ) {}
 
-    @Post('request')
-    async request(@Body() creditCardRequest: CreditCardRequestDTO) {
-        const solicitation = await this.creditCardService.createSolicitation(
-            creditCardRequest,
-        );
+  /**
+   * Rota que realiza uma requisição de transação
+   * @param creditCardRequest 
+   * @returns 
+   */
+  @Post('request')
+  async request(@Body() creditCardRequest: CreditCardRequestDTO) {
+    const solicitation = await this.creditCardService.createSolicitation(
+      creditCardRequest,
+    );
 
-        return {
-            solicitation: solicitation
-        }
+    return {
+      solicitation: solicitation
     }
+  }
 }

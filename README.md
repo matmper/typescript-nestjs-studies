@@ -32,7 +32,7 @@ $ docker-compose up
 
 - Este projeto utiliza o pacote `@nestjs/swagger` para controle de documentação de rotas. Acesse:
 ```bash
-http://127.0.0.1:3000/docs
+http://localhost:3000/docs
 ```
 
 ## Execução de testes

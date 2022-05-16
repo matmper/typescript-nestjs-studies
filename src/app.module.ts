@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
 import User from './user/user.entity';
 import Solicitation from './credit-card/solicitation.entity';
 
@@ -15,7 +17,7 @@ import Solicitation from './credit-card/solicitation.entity';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_MYSQL_HOST || '127.0.0.1',
-      port: parseInt(process.env.DB_MYSQL_PORT)|| 3306,
+      port: parseInt(process.env.DB_MYSQL_PORT) || 3306,
       username: process.env.DB_MYSQL_USER || 'root',
       password: process.env.DB_MYSQL_PASS || '',
       database: process.env.DB_MYSQL_NAME,
@@ -26,9 +28,10 @@ import Solicitation from './credit-card/solicitation.entity';
       synchronize: true,
     }),
     CreditCardModule,
-    UserModule
+    UserModule,
+    AuthModule
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UserController, AuthController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
