@@ -10,6 +10,9 @@ import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
 import User from './user/user.entity';
 import Solicitation from './credit-card/solicitation.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -27,11 +30,15 @@ import Solicitation from './credit-card/solicitation.entity';
       ],
       synchronize: true,
     }),
+    JwtModule.register({
+      secret: 'abcbanana',
+      signOptions: { expiresIn: '3600s' },
+    }),
     CreditCardModule,
     UserModule,
     AuthModule
   ],
   controllers: [AppController, UserController, AuthController],
-  providers: [AppService],
+  providers: [AppService, AuthService, UserService],
 })
 export class AppModule { }

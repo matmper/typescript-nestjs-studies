@@ -36,13 +36,13 @@ export class UserService {
   async verifyUserExists(email, cpf) {
     const hasUserByEmail = await this.findUserByEmail(email)
 
-    if (hasUserByEmail.length > 0) {
+    if (hasUserByEmail) {
       return {user: hasUserByEmail, type: 'email'}
     }
 
     const hasUserByCpf = await this.findUserByCpf(cpf)
 
-    if (hasUserByCpf.length > 0) {
+    if (hasUserByCpf) {
       return {user: hasUserByCpf, type: 'cpf'}
     }
 
@@ -55,7 +55,7 @@ export class UserService {
    * @returns 
    */
   async findUserByEmail(email: string) {
-    return this.userRepository.find({ email })
+    return this.userRepository.findOne({ email })
   }
 
   /**
@@ -64,7 +64,7 @@ export class UserService {
    * @returns 
    */
   private async findUserByCpf(cpf: string) {
-    return this.userRepository.find({ cpf })
+    return this.userRepository.findOne({ cpf })
   }
 
   /**

@@ -1,7 +1,7 @@
 import { Controller, Body, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthService } from './auth.service';
 import LoginRequestDTO from './types/login-request.dto';
+import { AuthService } from './auth.service';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -15,8 +15,6 @@ export class AuthController {
    */
   @Post('login')
   async login(@Body() loginRequestDTO: LoginRequestDTO) {
-    const { email, password } = loginRequestDTO
-
-    return await this.authService.login(email, password);
+    return await this.authService.login(loginRequestDTO.email, loginRequestDTO.password);
   }
 }

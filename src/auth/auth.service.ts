@@ -22,11 +22,11 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const payload = { email, sub: 1 };
+    const payload = { email, sub: user.id };
 
     return {
       user: user,
-      token: this.jwtService.sign(payload)
+      token: this.jwtService.sign(payload),
     }
   }
 }

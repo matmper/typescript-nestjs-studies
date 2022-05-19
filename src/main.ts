@@ -11,7 +11,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Transactions')
     .setDescription('API de transações entre contas e usuários')
-    .setVersion('1.0')
+    .setVersion('v1')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
