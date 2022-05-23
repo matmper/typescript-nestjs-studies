@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('JWT')
 @ApiTags('Padrão')
 @Controller()
 export class AppController {

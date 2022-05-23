@@ -12,6 +12,11 @@ async function bootstrap() {
     .setTitle('Transactions')
     .setDescription('API de transações entre contas e usuários')
     .setVersion('v1')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT'
+    }, 'JWT')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

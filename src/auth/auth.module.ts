@@ -6,13 +6,14 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
+import { JWT_SECRET_OR_KEY } from './constants';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: 'secretPassword',
+      secret: JWT_SECRET_OR_KEY,
       signOptions: { expiresIn: '3600s' }
     })
   ],

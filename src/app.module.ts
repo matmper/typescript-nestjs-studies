@@ -13,6 +13,9 @@ import Solicitation from './credit-card/solicitation.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
+import { APP_GUARD } from '@nestjs/core'
+import { JwtAuthGuard } from './auth/jwt.auth.guard';
+import { JWT_SECRET_OR_KEY } from './auth/constants';
 
 @Module({
   imports: [
@@ -31,7 +34,7 @@ import { UserService } from './user/user.service';
       synchronize: true,
     }),
     JwtModule.register({
-      secret: 'abcbanana',
+      secret: JWT_SECRET_OR_KEY,
       signOptions: { expiresIn: '3600s' },
     }),
     CreditCardModule,
@@ -39,6 +42,6 @@ import { UserService } from './user/user.service';
     AuthModule
   ],
   controllers: [AppController, UserController, AuthController],
-  providers: [AppService, AuthService, UserService],
+  providers: [AppService, AuthService, UserService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule { }
