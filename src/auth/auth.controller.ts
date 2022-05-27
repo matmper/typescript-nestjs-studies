@@ -12,12 +12,15 @@ export class AuthController {
 
   /**
    * Método POST para realizar autenticação
-   * @param loginData 
-   * @returns 
+   * @param loginData
+   * @returns
    */
-  
+
   @Post('login')
   async login(@Body() loginRequestDTO: LoginRequestDTO) {
-    return await this.authService.login(loginRequestDTO.email, loginRequestDTO.password);
+    return await this.authService.login(
+      loginRequestDTO.email,
+      loginRequestDTO.password,
+    );
   }
 }

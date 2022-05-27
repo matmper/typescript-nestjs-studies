@@ -9,23 +9,26 @@ import SolicitationStatus from './enum/solicitation-status.enum';
 @Injectable()
 export class CreditCardService {
   constructor(
-    @InjectRepository(Solicitation) private solicitationRepository: Repository<Solicitation>,
+    @InjectRepository(Solicitation)
+    private solicitationRepository: Repository<Solicitation>,
     private userService: UserService,
   ) {}
 
   /**
    * Cadastra um usuário e sua solicitação de transação
-   * @param creditCardRequest 
-   * @returns 
+   * @param creditCardRequest
+   * @returns
    */
   async createSolicitation(creditCardRequest: CreditCardRequestDTO) {
     const userExists = await this.userService.verifyUserExists(
       creditCardRequest.email,
-      creditCardRequest.cpf
-    )
+      creditCardRequest.cpf,
+    );
 
     if (userExists) {
-      throw new BadRequestException(`Usuário [${userExists.type}] já cadastrado em nossa base de dados`);
+      throw new BadRequestException(
+        `Usuário [${userExists.type}] já cadastrado em nossa base de dados`,
+      );
     }
 
     const user = await this.userService.createUser({
@@ -41,10 +44,14 @@ export class CreditCardService {
     const solicitationEntity = this.solicitationRepository.create({
       preferredDueDay: creditCardRequest.preferredDueDay,
       user: user,
-      status: approved ? SolicitationStatus.APPROVED : SolicitationStatus.DENIED,
-    })
+      status: approved
+        ? SolicitationStatus.APPROVED
+        : SolicitationStatus.DENIED,
+    });
 
-    const solicitation = await this.solicitationRepository.save(solicitationEntity);
+    const solicitation = await this.solicitationRepository.save(
+      solicitationEntity,
+    );
 
     return {
       solicitation: solicitation,
@@ -55,7 +62,7 @@ export class CreditCardService {
 
   /**
    * Retorna um score de 0 a 1000
-   * @returns 
+   * @returns
    */
   private requestScore(): number {
     return this.randomIntFromInterval(0, 1000);
@@ -63,9 +70,9 @@ export class CreditCardService {
 
   /**
    * Retorna um número aleatório com min e max
-   * @param min 
-   * @param max 
-   * @returns 
+   * @param min
+   * @param max
+   * @returns
    */
   private randomIntFromInterval(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);

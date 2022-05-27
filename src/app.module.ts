@@ -8,29 +8,26 @@ import { CreditCardModule } from './credit-card/credit-card.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
-import User from './user/user.entity';
-import Solicitation from './credit-card/solicitation.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
-import { APP_GUARD } from '@nestjs/core'
+import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt.auth.guard';
 import { JWT_SECRET_OR_KEY } from './auth/constants';
+import User from './user/user.entity';
+import Solicitation from './credit-card/solicitation.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: `${process.env.NODE_ENV}.env` }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_MYSQL_HOST || '127.0.0.1',
-      port: parseInt(process.env.DB_MYSQL_PORT) || 3306,
-      username: process.env.DB_MYSQL_USER || 'root',
-      password: process.env.DB_MYSQL_PASS || '',
-      database: process.env.DB_MYSQL_NAME,
-      entities: [
-        User,
-        Solicitation
-      ],
+      type: 'postgres',
+      host: process.env.DB_POSTGRES_HOST,
+      port: parseInt(process.env.PORT),
+      username: process.env.DB_POSTGRES_USER,
+      password: process.env.DB_POSTGRES_PASS,
+      database: process.env.DB_POSTGRES_NAME,
+      entities: [User, Solicitation],
       synchronize: true,
     }),
     JwtModule.register({
@@ -39,9 +36,14 @@ import { JWT_SECRET_OR_KEY } from './auth/constants';
     }),
     CreditCardModule,
     UserModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController, UserController, AuthController],
-  providers: [AppService, AuthService, UserService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    AppService,
+    AuthService,
+    UserService,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
 })
-export class AppModule { }
+export class AppModule {}

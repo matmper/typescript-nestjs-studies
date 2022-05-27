@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity()
 export default class User {
@@ -8,21 +15,21 @@ export default class User {
   @Column()
   name: string;
 
-  @Column({ unique: true})
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column({ unique: true})
+  @Column({ unique: true })
   cpf: string;
 
-  @CreateDateColumn({name: "created_at"})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
-  @UpdateDateColumn({name: "updated_at"})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
 
-  @DeleteDateColumn({name: "deleted_at"})
+  @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
 }

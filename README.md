@@ -5,44 +5,50 @@ Repositório exclusivo para estudos pessoais de TypeScript utilizando o framewor
 ## Instalação
 
 - Realize a instalação do [Docker](https://docs.docker.com/engine/install/)
+- Realiza a instalação do [Docker Compose](https://docs.docker.com/compose/install/)
 - Mantenha o docker inicializado
 - Execute na pasta raiz do projeto:
 ```bash
-# copy .env.example
 $ cp .env.example .env
 ```
 
-Configure o seu arquivo de ambiente e execute também na raiz, execute o seguinte comando para realizar o build
-de seu projeto:
+- Configure o seu arquivo de ambiente
+- Execute o seguinte comando para realizar o build do projeto:
 
 ```bash
-# development - docker
 $ docker-compose up --build
 ```
 
-## Execução
+- Depois de instalado e configurado, para executar, mantenha o docker aberto e execute o comando:
 
-- Execute na pasta raiz do projeto para executar o seu projeto:
 ```bash
-# development - docker
 $ docker-compose up
 ```
 
-## Documentação de rotas
+## Lint & Prettier
 
-- Este projeto utiliza o pacote `@nestjs/swagger` para controle de documentação de rotas. Acesse:
+- Pacotes:
+    - Prettier: [Documentação](https://prettier.io/docs/en/index.html)
+    - ESLint: [Documentação](https://eslint.org/docs/user-guide/getting-started)
+- Execute em seu terminal:
 ```bash
-http://localhost:3000/docs
+$ docker-compose exec nestdev yarn run lint && yarn run format
 ```
 
-## Execução de testes
+## Rotas (Documentação)
+
+- Pacotes:
+    - Swagger: [Documentação](https://docs.nestjs.com/openapi/introduction)
+- Acesse: `http://localhost:3000/docs`
+
+## Testes
 
 ```bash
 # unit tests
-$ docker-compose exec app npm run test
+$ docker-compose exec nestdev yarn run test
 
 # test coverage
-$ docker-compose exec app npm run test:cov
+$ docker-compose exec nestdev yarn run test:cov
 ```
 
 ---

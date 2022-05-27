@@ -9,6 +9,6 @@ import { UserService } from 'src/user/user.service';
 @Module({
   imports: [TypeOrmModule.forFeature([User, Solicitation])],
   controllers: [CreditCardController],
-  providers: [CreditCardService, UserService]
+  providers: [CreditCardService, UserService],
 })
 export class CreditCardModule {}

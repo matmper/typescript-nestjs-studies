@@ -13,15 +13,15 @@ export class UserService {
 
   /**
    * Realiza a criação de um novo usuário
-   * @param user 
-   * @returns 
+   * @param user
+   * @returns
    */
   async createUser(user: UserDTO) {
     const encryptPassword = await this.encryptPassword(user.password);
 
     const userEntity = this.userRepository.create({
-        ...user,
-        password: encryptPassword
+      ...user,
+      password: encryptPassword,
     });
 
     return await this.userRepository.save(userEntity);
@@ -29,47 +29,55 @@ export class UserService {
 
   /**
    * Re4aliza uma verificação se o usuário existe de acordo com email ou cpf
-   * @param email 
-   * @param cpf 
-   * @returns 
+   * @param email
+   * @param cpf
+   * @returns
    */
   async verifyUserExists(email, cpf) {
-    const hasUserByEmail = await this.findUserByEmail(email)
+    const hasUserByEmail = await this.findUserByEmail(email);
 
     if (hasUserByEmail) {
-      return {user: hasUserByEmail, type: 'email'}
+      return { user: hasUserByEmail, type: 'email' };
     }
 
-    const hasUserByCpf = await this.findUserByCpf(cpf)
+    const hasUserByCpf = await this.findUserByCpf(cpf);
 
     if (hasUserByCpf) {
-      return {user: hasUserByCpf, type: 'cpf'}
+      return { user: hasUserByCpf, type: 'cpf' };
     }
 
-    return false
+    return false;
   }
 
   /**
    * Captura um usuário pelo seu e-mail
-   * @param email 
-   * @returns 
+   * @param email
+   * @returns
    */
-  async findUserByEmail(email: string) {
-    return this.userRepository.findOne({ email })
+  async findUserByEmail(email: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
   }
 
   /**
    * Captura um usuário pelo seu cpf
-   * @param cpf 
-   * @returns 
+   * @param cpf
+   * @returns
    */
-  private async findUserByCpf(cpf: string) {
-    return this.userRepository.findOne({ cpf })
+  private async findUserByCpf(cpf: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        cpf,
+      },
+    });
   }
 
   /**
    * Retorna um password já com sua cryptografia
-   * @param password 
+   * @param password
    * @returns string
    */
   private async encryptPassword(password: string) {

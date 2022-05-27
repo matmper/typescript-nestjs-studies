@@ -7,14 +7,12 @@ import { IsPublic } from '../auth/is-public.decorator';
 @ApiTags('Requisição')
 @Controller('credit-card')
 export class CreditCardController {
-  constructor(
-    private creditCardService: CreditCardService
-  ) {}
+  constructor(private creditCardService: CreditCardService) {}
 
   /**
    * Rota que realiza uma requisição de transação
-   * @param creditCardRequest 
-   * @returns 
+   * @param creditCardRequest
+   * @returns
    */
   @IsPublic()
   @Post('request')
@@ -24,7 +22,7 @@ export class CreditCardController {
     );
 
     return {
-      solicitation: solicitation
-    }
+      solicitation: solicitation,
+    };
   }
 }

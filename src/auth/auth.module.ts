@@ -14,10 +14,10 @@ import { JWT_SECRET_OR_KEY } from './constants';
     PassportModule,
     JwtModule.register({
       secret: JWT_SECRET_OR_KEY,
-      signOptions: { expiresIn: '3600s' }
-    })
+      signOptions: { expiresIn: '3600s' },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, JwtStrategy]
+  providers: [AuthService, UserService, JwtStrategy],
 })
 export class AuthModule {}
