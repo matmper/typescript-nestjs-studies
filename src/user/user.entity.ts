@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import UserStatus from './enum/user-status.enum';
 
 @Entity()
 export default class User {
@@ -23,6 +24,9 @@ export default class User {
 
   @Column({ unique: true })
   cpf: string;
+
+  @Column({ default: UserStatus.ENABLED })
+  status: UserStatus;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import UserDTO from './types/user.dto';
 import User from './user.entity';
 import * as bcrypt from 'bcrypt';
+import UserStatus from './enum/user-status.enum';
 
 @Injectable()
 export class UserService {
@@ -16,12 +17,13 @@ export class UserService {
    * @param user
    * @returns
    */
-  async createUser(user: UserDTO) {
+  async createUser(user: UserDTO, approved: boolean) {
     const encryptPassword = await this.encryptPassword(user.password);
 
     const userEntity = this.userRepository.create({
       ...user,
       password: encryptPassword,
+      status: approved ? UserStatus.ENABLED : UserStatus.DISABLED,
     });
 
     return await this.userRepository.save(userEntity);

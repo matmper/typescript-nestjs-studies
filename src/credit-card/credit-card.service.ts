@@ -5,12 +5,20 @@ import { UserService } from '../user/user.service';
 import Solicitation from './solicitation.entity';
 import CreditCardRequestDTO from './types/credit-card-request.dto';
 import SolicitationStatus from './enum/solicitation-status.enum';
+import CreditCard from './credit-card.entity';
+import { addYears } from 'date-fns';
+import Brands from './enum/brands.enum';
+import User from 'src/user/user.entity';
+import generateCreditCard from './helpers/generate-credit-card.helper';
+import generateCreditCardCvv from './helpers/generate-credit-card-cvv.helper';
 
 @Injectable()
 export class CreditCardService {
   constructor(
     @InjectRepository(Solicitation)
     private solicitationRepository: Repository<Solicitation>,
+    @InjectRepository(CreditCard)
+    private creditCardRepository: Repository<CreditCard>,
     private userService: UserService,
   ) {}
 
@@ -31,15 +39,15 @@ export class CreditCardService {
       );
     }
 
+    const score = this.requestScore();
+    const approved = score >= 600;
+
     const user = await this.userService.createUser({
       email: creditCardRequest.email,
       name: creditCardRequest.name,
       password: creditCardRequest.password,
       cpf: creditCardRequest.cpf,
-    });
-
-    const score = this.requestScore();
-    const approved = score >= 600;
+    }, approved);
 
     const solicitationEntity = this.solicitationRepository.create({
       preferredDueDay: creditCardRequest.preferredDueDay,
@@ -53,11 +61,36 @@ export class CreditCardService {
       solicitationEntity,
     );
 
+    let card = null;
+
+    if (approved) {
+      card = await this.generateCreditCardForApproved(user);
+    }
+
     return {
       solicitation: solicitation,
       score: score,
       approved: approved,
+      card: card,
     };
+  }
+
+  /**
+   * Gera um novo cartão de crédito quando a solicitação for aprovada
+   * @returns
+   */
+  private async generateCreditCardForApproved(user: User) {
+    const DEFAULT_BRAND = Brands.VISA;
+
+    return await this.creditCardRepository.save(
+      this.creditCardRepository.create({
+        valid_until: addYears(new Date(), 5),
+        number: generateCreditCard(DEFAULT_BRAND),
+        cvv: generateCreditCardCvv(),
+        brand: DEFAULT_BRAND,
+        user
+      })
+    )
   }
 
   /**

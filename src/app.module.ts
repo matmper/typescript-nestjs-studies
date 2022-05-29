@@ -14,8 +14,10 @@ import { UserService } from './user/user.service';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt.auth.guard';
 import { JWT_SECRET_OR_KEY } from './auth/constants';
+import { TransactionModule } from './transaction/transaction.module';
 import User from './user/user.entity';
 import Solicitation from './credit-card/solicitation.entity';
+import CreditCard from './credit-card/credit-card.entity';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import Solicitation from './credit-card/solicitation.entity';
       username: process.env.DB_POSTGRES_USER,
       password: process.env.DB_POSTGRES_PASS,
       database: process.env.DB_POSTGRES_NAME,
-      entities: [User, Solicitation],
+      entities: [User, Solicitation, CreditCard],
       synchronize: true,
     }),
     JwtModule.register({
@@ -37,6 +39,7 @@ import Solicitation from './credit-card/solicitation.entity';
     CreditCardModule,
     UserModule,
     AuthModule,
+    TransactionModule,
   ],
   controllers: [AppController, UserController, AuthController],
   providers: [
