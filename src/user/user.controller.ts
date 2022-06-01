@@ -6,7 +6,11 @@ import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 @Controller('user')
 export class UserController {
   @Get()
-  getUser(): string {
-    return 'Olá usuário!';
+  getUser(): any {
+    return {
+      success: true,
+      message: 'Olá usuário!',
+      data: null,
+    };
   }
 }

@@ -9,5 +9,6 @@ import CreditCard from 'src/credit-card/credit-card.entity';
   imports: [TypeOrmModule.forFeature([Transaction, CreditCard])],
   controllers: [TransactionController],
   providers: [TransactionService],
+  exports: [TypeOrmModule.forFeature([Transaction])],
 })
 export class TransactionModule {}

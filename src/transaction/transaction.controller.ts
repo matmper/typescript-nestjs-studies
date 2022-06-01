@@ -12,6 +12,10 @@ export class TransactionController {
 
   @Post()
   createTransaction(@Body() createTransactionDTO: CreateTransactionDTO) {
-    return this.transactionService.createTransaction(createTransactionDTO);
+    return {
+      success: true,
+      message: 'transação realizada com sucesso',
+      data: this.transactionService.createTransaction(createTransactionDTO),
+    };
   }
 }

@@ -10,7 +10,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Transactions')
-    .setDescription('API de transações entre contas e usuários')
+    .setDescription('API de transações entre contas e cartões de crédito')
     .setVersion('v1')
     .addBearerAuth(
       {

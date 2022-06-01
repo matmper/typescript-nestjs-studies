@@ -1,17 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsNotEmpty, IsEmail, IsNumberString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsEmail,
+  IsNumberString,
+  IsInt,
+  Min,
+  Max,
+  Length,
+  MinLength,
+} from 'class-validator';
 
 class CreditCardRequestDTO {
   @ApiProperty({
+    default: 5,
     description: 'dia de pagamento da fatura',
   })
-  @IsNumber()
+  @IsInt()
+  @Min(1)
+  @Max(31)
   preferredDueDay: number;
 
   @ApiProperty({
     description: 'nome do usuário',
   })
   @IsNotEmpty()
+  @Length(1, 50)
   name: string;
 
   @ApiProperty({
@@ -25,6 +38,7 @@ class CreditCardRequestDTO {
     description: 'senha do usuário (login)',
   })
   @IsNotEmpty()
+  @MinLength(6)
   password: string;
 
   @ApiProperty({
@@ -32,6 +46,7 @@ class CreditCardRequestDTO {
   })
   @IsNotEmpty()
   @IsNumberString()
+  @Length(11, 11)
   cpf: string;
 }
 

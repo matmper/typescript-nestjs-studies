@@ -18,7 +18,9 @@ export class TransactionService {
     const { credit_card, value } = createTransactionDto;
 
     const creditCard = await this.creditCardRepository.findOne({
-      number: credit_card,
+      where: {
+        number: credit_card,
+      },
     });
 
     if (!creditCard) {
@@ -28,7 +30,9 @@ export class TransactionService {
     }
 
     if (creditCard.disponible < value) {
-      throw new BadRequestException('Limite indisponível');
+      throw new BadRequestException(
+        `Limite indisponível (atual: ${creditCard.disponible})`,
+      );
     }
 
     const entity = this.transactionRepository.create({
@@ -38,7 +42,7 @@ export class TransactionService {
 
     this.creditCardRepository.update(creditCard.id, {
       disponible: creditCard.disponible - value,
-    })
+    });
 
     return this.transactionRepository.save(entity);
   }

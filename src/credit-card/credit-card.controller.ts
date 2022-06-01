@@ -22,7 +22,9 @@ export class CreditCardController {
     );
 
     return {
-      solicitation: solicitation,
+      success: true,
+      message: 'solicitação realizada com sucesso',
+      data: solicitation,
     };
   }
 }

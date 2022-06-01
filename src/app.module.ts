@@ -21,6 +21,9 @@ import CreditCard from './credit-card/credit-card.entity';
 import Transaction from './transaction/transaction.entity';
 import { TransactionService } from './transaction/transaction.service';
 import { TransactionController } from './transaction/transaction.controller';
+import { StatementService } from './statement/statement.service';
+import { StatementModule } from './statement/statement.module';
+import { StatementController } from './statement/statement.controller';
 
 @Module({
   imports: [
@@ -43,18 +46,21 @@ import { TransactionController } from './transaction/transaction.controller';
     UserModule,
     AuthModule,
     TransactionModule,
+    StatementModule,
   ],
   controllers: [
     AppController,
     UserController,
     AuthController,
     TransactionController,
+    StatementController,
   ],
   providers: [
     AppService,
     AuthService,
     UserService,
     TransactionService,
+    StatementService,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 })
