@@ -3,7 +3,7 @@
  * @returns string
  */
 const generateCreditCardCvv = () => {
-  const cvv = Math.floor( Math.random() * ( 999 - 100 + 1 ) + 100 );
+  const cvv = Math.floor(Math.random() * (999 - 100 + 1) + 100);
   return cvv.toString();
 };
 

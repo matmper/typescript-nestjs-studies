@@ -32,7 +32,8 @@ $ docker-compose up
     - ESLint: [Documentação](https://eslint.org/docs/user-guide/getting-started)
 - Execute em seu terminal:
 ```bash
-$ docker-compose exec nestdev yarn run lint && yarn run format
+$ docker-compose exec nestdev yarn run lint
+$ docker-compose exec nestdev yarn run format
 ```
 
 ## Rotas (Documentação)

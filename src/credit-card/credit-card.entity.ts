@@ -1,3 +1,4 @@
+import Transaction from 'src/transaction/transaction.entity';
 import User from 'src/user/user.entity';
 import {
   Column,
@@ -8,6 +9,7 @@ import {
   DeleteDateColumn,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import Brands from './enum/brands.enum';
 
@@ -16,13 +18,13 @@ class CreditCard {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 50 })
+  @Column({ type: 'float', default: 50 })
   limit: number;
 
-  @Column({ default: 50 })
+  @Column({ type: 'float', default: 50 })
   disponible: number;
 
-  @Column({ length: 16})
+  @Column({ length: 16 })
   number: string;
 
   @Column({ default: Brands.VISA })
@@ -46,6 +48,9 @@ class CreditCard {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.credit_card)
+  transactions: Transaction;
 }
 
 export default CreditCard;

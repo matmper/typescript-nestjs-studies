@@ -3,7 +3,7 @@
  */
 enum Brands {
   VISA = 'VISA',
-  MASTERCARD = 'MASTERCARD'
+  MASTERCARD = 'MASTERCARD',
 }
 
 export default Brands;

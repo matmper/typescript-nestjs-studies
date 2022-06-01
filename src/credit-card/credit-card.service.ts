@@ -42,12 +42,15 @@ export class CreditCardService {
     const score = this.requestScore();
     const approved = score >= 600;
 
-    const user = await this.userService.createUser({
-      email: creditCardRequest.email,
-      name: creditCardRequest.name,
-      password: creditCardRequest.password,
-      cpf: creditCardRequest.cpf,
-    }, approved);
+    const user = await this.userService.createUser(
+      {
+        email: creditCardRequest.email,
+        name: creditCardRequest.name,
+        password: creditCardRequest.password,
+        cpf: creditCardRequest.cpf,
+      },
+      approved,
+    );
 
     const solicitationEntity = this.solicitationRepository.create({
       preferredDueDay: creditCardRequest.preferredDueDay,
@@ -88,9 +91,9 @@ export class CreditCardService {
         number: generateCreditCard(DEFAULT_BRAND),
         cvv: generateCreditCardCvv(),
         brand: DEFAULT_BRAND,
-        user
-      })
-    )
+        user,
+      }),
+    );
   }
 
   /**

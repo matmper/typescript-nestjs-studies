@@ -2,8 +2,8 @@ import Brands from '../enum/brands.enum';
 
 /**
  * Captura a identificação da badeira (6 primeiros dígitos)
- * @param brand 
- * @returns 
+ * @param brand
+ * @returns
  */
 const brandBins = (brand: Brands): string =>
   ({
@@ -13,20 +13,20 @@ const brandBins = (brand: Brands): string =>
 
 /**
  * Verifica se é par
- * @param number 
+ * @param number
  * @returns Boolean
  */
 const isEven = (number) => number % 2 === 0;
 
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
 const getAccountNumber = () => Math.random().toString().slice(2, 11);
 
 /**
  * Retorna um único número singular
- * @param number 
+ * @param number
  * @returns number
  */
 const singleDigit = (number) => {
@@ -35,7 +35,7 @@ const singleDigit = (number) => {
 
 /**
  * Realiza um cálculo verificando se é par
- * @param even 
+ * @param even
  * @returns number
  */
 const calculateEven = (even) => {
@@ -44,14 +44,14 @@ const calculateEven = (even) => {
 
 /**
  * Captura o dígito final do cartão
- * @param checksum 
+ * @param checksum
  * @returns number
  */
 const calculateFinalDigit = (checksum) => 10 - checksum;
 
 /**
  * Gera o dígito final do cartão
- * @param card 
+ * @param card
  * @returns number
  */
 const generateFinalDigit = (card) => {
@@ -67,7 +67,7 @@ const generateFinalDigit = (card) => {
 
 /**
  * Verifica se o número gerado é válido
- * @param card 
+ * @param card
  * @returns Boolean
  */
 const isValidCreditCard = (card) => {
@@ -77,7 +77,7 @@ const isValidCreditCard = (card) => {
 
 /**
  * Função exportada, gera e valida os números
- * @param brand 
+ * @param brand
  * @returns string
  */
 const generateCreditCard = (brand: Brands) => {

@@ -18,6 +18,9 @@ import { TransactionModule } from './transaction/transaction.module';
 import User from './user/user.entity';
 import Solicitation from './credit-card/solicitation.entity';
 import CreditCard from './credit-card/credit-card.entity';
+import Transaction from './transaction/transaction.entity';
+import { TransactionService } from './transaction/transaction.service';
+import { TransactionController } from './transaction/transaction.controller';
 
 @Module({
   imports: [
@@ -29,7 +32,7 @@ import CreditCard from './credit-card/credit-card.entity';
       username: process.env.DB_POSTGRES_USER,
       password: process.env.DB_POSTGRES_PASS,
       database: process.env.DB_POSTGRES_NAME,
-      entities: [User, Solicitation, CreditCard],
+      entities: [User, Solicitation, CreditCard, Transaction],
       synchronize: true,
     }),
     JwtModule.register({
@@ -41,11 +44,17 @@ import CreditCard from './credit-card/credit-card.entity';
     AuthModule,
     TransactionModule,
   ],
-  controllers: [AppController, UserController, AuthController],
+  controllers: [
+    AppController,
+    UserController,
+    AuthController,
+    TransactionController,
+  ],
   providers: [
     AppService,
     AuthService,
     UserService,
+    TransactionService,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 })
