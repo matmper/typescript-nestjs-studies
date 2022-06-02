@@ -14,10 +14,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt.auth.guard';
 import { JWT_SECRET_OR_KEY } from './auth/constants';
 import { TransactionModule } from './transaction/transaction.module';
-import User from './user/user.entity';
-import Solicitation from './credit-card/solicitation.entity';
-import CreditCard from './credit-card/credit-card.entity';
-import Transaction from './transaction/transaction.entity';
 import { TransactionService } from './transaction/transaction.service';
 import { TransactionController } from './transaction/transaction.controller';
 import { StatementService } from './statement/statement.service';
@@ -28,7 +24,6 @@ import { BalanceController } from './balance/balance.controller';
 import { BalanceService } from './balance/balance.service';
 import { BillService } from './bill/bill.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import Bill from './bill/bill.entity';
 import { BillModule } from './bill/bill.module';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { CreditCardService } from './credit-card/credit-card.service';
@@ -43,7 +38,7 @@ import { CreditCardService } from './credit-card/credit-card.service';
       username: process.env.DB_POSTGRES_USER,
       password: process.env.DB_POSTGRES_PASS,
       database: process.env.DB_POSTGRES_NAME,
-      entities: [User, Solicitation, CreditCard, Transaction, Bill],
+      entities: ['dist/**/*.entity.js'],
       synchronize: true,
     }),
     JwtModule.register({

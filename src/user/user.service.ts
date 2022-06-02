@@ -5,8 +5,6 @@ import UserDTO from './types/user.dto';
 import User from './user.entity';
 import * as bcrypt from 'bcrypt';
 import UserStatus from './enum/user-status.enum';
-import SolicitationStatus from 'src/credit-card/enum/solicitation-status.enum';
-import Solicitation from 'src/credit-card/solicitation.entity';
 
 @Injectable()
 export class UserService {
