@@ -4,7 +4,7 @@ import CreditCardRequestDTO from './types/credit-card-request.dto';
 import { CreditCardService } from './credit-card.service';
 import { IsPublic } from '../auth/is-public.decorator';
 
-@ApiTags('Requisição')
+@ApiTags('Cartões')
 @Controller('credit-card')
 export class CreditCardController {
   constructor(private creditCardService: CreditCardService) {}

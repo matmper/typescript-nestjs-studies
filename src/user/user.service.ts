@@ -5,6 +5,8 @@ import UserDTO from './types/user.dto';
 import User from './user.entity';
 import * as bcrypt from 'bcrypt';
 import UserStatus from './enum/user-status.enum';
+import SolicitationStatus from 'src/credit-card/enum/solicitation-status.enum';
+import Solicitation from 'src/credit-card/solicitation.entity';
 
 @Injectable()
 export class UserService {
@@ -84,5 +86,15 @@ export class UserService {
    */
   private async encryptPassword(password: string) {
     return await bcrypt.hash(password, 10);
+  }
+
+  /**
+   * Retorna usuários que não possuem faturas
+   */
+  async getUserWithoutBill(): Promise<any> {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('bill', 'bill')
+      .getRawMany();
   }
 }

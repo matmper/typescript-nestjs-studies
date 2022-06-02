@@ -15,7 +15,6 @@ export class AuthController {
    * @param loginData
    * @returns
    */
-
   @Post('login')
   async login(@Body() loginRequestDTO: LoginRequestDTO) {
     const auth = await this.authService.login(

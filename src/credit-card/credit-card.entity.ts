@@ -36,7 +36,7 @@ class CreditCard {
   @Column({ length: 3 })
   cvv: string;
 
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   @OneToOne(() => User)
   user: User;
 

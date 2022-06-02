@@ -16,7 +16,7 @@ export default class Solicitation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   @OneToOne(() => User)
   user: User;
 

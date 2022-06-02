@@ -113,4 +113,25 @@ export class CreditCardService {
   private randomIntFromInterval(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+  /**
+   * Retorna o dia de vencimento do usuário
+   * @param user
+   */
+  async getUserPreferredDueDay(user: User): Promise<number> {
+    const solicitation = await this.solicitationRepository
+      .createQueryBuilder('solicitation')
+      .select('solicitation.preferredDueDay')
+      .where('user_id = :userId', { userId: user.id })
+      .andWhere('solicitation.status = :status', {
+        status: SolicitationStatus.APPROVED,
+      })
+      .getOne();
+
+    if (solicitation) {
+      return solicitation.preferredDueDay;
+    }
+
+    return 10;
+  }
 }
