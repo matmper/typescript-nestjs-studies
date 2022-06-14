@@ -13,5 +13,6 @@ import BillTask from './bill.task';
   imports: [TypeOrmModule.forFeature([Bill, User, Solicitation, CreditCard])],
   providers: [BillService, BillTask, UserService, CreditCardService],
   controllers: [],
+  exports: [TypeOrmModule.forFeature([Bill])],
 })
 export class BillModule {}
